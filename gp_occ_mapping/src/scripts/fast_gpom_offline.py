@@ -71,7 +71,7 @@ def feed_input():
     global gp_com_msg
 
     # reading dataset(bag file)
-    file_name = '/home/yujc/robot_ws/catkin_ws/src/fun-gpom/data_set/stdr/stdr_data.bag'
+    file_name = '~robot_ws/catkin_ws/src/fun-gpom/data_set/stdr/stdr_data.bag'
     bag = rosbag.Bag(file_name)
 
     # We want to get scan and pose, so we should do mapping after 2 iterations.
