@@ -71,7 +71,7 @@ def feed_input():
     global gp_com_msg
 
     # reading dataset(bag file)
-    file_name = '~robot_ws/catkin_ws/src/fun-gpom/data_set/stdr/stdr_data.bag'
+    file_name = '/home/yujc/robot_ws/catkin_ws/src/fun-gpom/data_set/stdr/stdr_data.bag'
     bag = rosbag.Bag(file_name)
 
     # We want to get scan and pose, so we should do mapping after 2 iterations.
@@ -148,22 +148,25 @@ def publish_map_image():
 
 
 if __name__ == '__main__':
+    ros_mode = False
     gp_map = mcgpom.GPRMap(mcmc=False) 
-    # rospy.init_node('gp_occ_map', anonymous=True)
-    
-    #publisher
-    # map_pub = rospy.Publisher('gp_map', OccupancyGrid, queue_size=10, latch=True)
-    # map_data_pub = rospy.Publisher('gp_map_metadata', MapMetaData, queue_size=10, latch=True)
-    # goal_pub = rospy.Publisher('gp_goal', PoseStamped, queue_size=10, latch=True)
-    # front_pub = rospy.Publisher('gp_frontiers', PoseArray, queue_size=10, latch=True)
-    # #srv
-    # s = rospy.Service('gp_map_server', GetMap, get_map_callback)
-    
 
-    # publish map
-    # occ_map_pub = rospy.Publisher('map', OccupancyGrid, queue_size=10, latch=True)
+    if ros_mode:
+        rospy.init_node('gp_occ_map', anonymous=True)
+        
+        #publisher
+        # map_pub = rospy.Publisher('gp_map', OccupancyGrid, queue_size=10, latch=True)
+        # map_data_pub = rospy.Publisher('gp_map_metadata', MapMetaData, queue_size=10, latch=True)
+        # goal_pub = rospy.Publisher('gp_goal', PoseStamped, queue_size=10, latch=True)
+        # front_pub = rospy.Publisher('gp_frontiers', PoseArray, queue_size=10, latch=True)
+        # #srv
+        # s = rospy.Service('gp_map_server', GetMap, get_map_callback)
+        
 
-    # pose_pub = rospy.Publisher("slam_out_pose", PoseStamped, queue_size=10, latch=True )
+        # publish map
+        occ_map_pub = rospy.Publisher('map', OccupancyGrid, queue_size=10, latch=True)
+
+        pose_pub = rospy.Publisher("slam_out_pose", PoseStamped, queue_size=10, latch=True )
 
 
     #gen
@@ -194,18 +197,18 @@ if __name__ == '__main__':
         
         
         # #publish
-        
+        if ros_mode:
         # occ_map_msg = gp_map.map_message()
         # map_pub.publish(occ_map_msg)
         # map_data_pub.publish(occ_map_msg.info)
 
         # goal_msg = gp_map.goal_message()
         # goal_pub.publish(goal_msg)
-#         pose_pub.publish(slam_out_pose_msg)
+            pose_pub.publish(slam_out_pose_msg)
         
 #         #8
 #         pub_st = time.time()    
-#         publish_map_image()
+            publish_map_image()
         
 # #plot_current_map()
         
